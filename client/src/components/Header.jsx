@@ -31,7 +31,8 @@ const Header = () => {
             </Button>
             <Link to='/sign-in'>
                 <Button className='border-0 bg-gradient-to-br
-            from-green-400 to-yellow-200 rounded-lg text-black font-semibold'>
+            from-green-400 to-yellow-200 rounded-lg
+             text-black font-semibold' outline>
                     Sign in
                 </Button>
             </Link>
