@@ -11,7 +11,7 @@ const Header = () => {
         <Link to="/" className=' self-center whitespace-nowrap
          text-sm sm:text-xl font-semibold dark:text-white'>
             <span className=' px-2 py-1 bg-gradient-to-r
-            from-green-400 to-yellow-200 rounded-lg'>FIRST</span>
+            from-teal-300 to-lime-200 rounded-lg'>FIRST</span>
             Blog
         </Link>
         <form>
@@ -30,9 +30,8 @@ const Header = () => {
                 <FaMoon />
             </Button>
             <Link to='/sign-in'>
-                <Button className='border-0 bg-gradient-to-br
-            from-green-400 to-yellow-200 rounded-lg
-             text-black font-semibold' outline>
+                <Button className='border-0 rounded-lg
+             text-black font-semibold' outline gradientDuoTone='tealToLime'>
                     Sign in
                 </Button>
             </Link>
