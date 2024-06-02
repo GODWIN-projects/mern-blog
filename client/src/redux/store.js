@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './users/userSlice'
+import themeReducer from './theme/themeSlice'
 import { combineReducers } from '@reduxjs/toolkit'
 import {persistReducer, FLUSH,
   REHYDRATE,
@@ -12,6 +13,7 @@ import persistStore from 'redux-persist/es/persistStore'
 
 const rootReducer = combineReducers({
   user: userReducer,
+  theme: themeReducer,
 })
 
 const persistConfig = {

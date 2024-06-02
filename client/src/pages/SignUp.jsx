@@ -51,7 +51,7 @@ const SignUp = () => {
           <Link to="/" className='text-4xl
           font-bold dark:text-white'>
               <span className=' px-2 py-1 bg-gradient-to-r
-              from-teal-300 to-lime-200 rounded-lg'>FIRST</span>
+              from-teal-300 to-lime-200 rounded-lg text-gray-700'>FIRST</span>
               Blog
           </Link>
           <p className=' text-sm mt-5'>
