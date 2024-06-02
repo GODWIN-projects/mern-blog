@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import  { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { SigninFailure, SigninStart, SigninSuccess } from '../redux/users/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import OAuth from '../components/OAuth';
 
 
 const Signin = () => {
@@ -21,7 +22,7 @@ const Signin = () => {
       return dispatch(SigninFailure("Please fill all the details"));
     };
     try {
-      dispatch(SigninStart);
+      dispatch(SigninStart());
       const res = await fetch('/api/auth/signin',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -92,10 +93,11 @@ const Signin = () => {
                 : 'Sign in'
               }
             </Button>
+            <OAuth/>
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Don't have an sccount?</span>
-            <Link to='/sign-in' className=' text-blue-500'>
+            <Link to='/sign-up' className=' text-blue-500'>
               Sign Up
             </Link>
           </div>
