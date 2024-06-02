@@ -27,11 +27,11 @@ const Header = () => {
                 className=' hidden lg:inline'
             />
         </form>
-        <Button className='w-12 lg:hidden' color="gray" pill>
+        <Button className='w-12 lg:hidden focus:ring-0' color="gray" pill>
             <AiOutlineSearch/>
         </Button>
         <div className='flex gap-2 md:order-2'> 
-            <Button className='w-12 hidden sm:inline ' color="gray" pill
+            <Button className='w-12 hidden sm:inline focus:ring-0' color="gray" pill
                 onClick={() => dispatch(toggleTheme())}>
                 {theme == 'light' ? <FaMoon /> : <FaSun/> }
             </Button>
@@ -58,7 +58,7 @@ const Header = () => {
             ):
             (
             <Link to='/sign-in'>
-                <Button outline gradientDuoTone='tealToLime'>
+                <Button className='focus:ring-0' outline gradientDuoTone='tealToLime'>
                     Sign in
                 </Button>
             </Link>
