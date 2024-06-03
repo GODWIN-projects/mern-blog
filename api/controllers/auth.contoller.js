@@ -53,7 +53,7 @@ export const signin = async(req, res, next) =>{
         
         const {password: pass, ...rest} = validUser._doc
 
-        res.status(200).cookie('access token', token, {
+        res.status(200).cookie('access_token', token, {
             httpOnly: true}).json(rest);
 
     } catch (err) {
@@ -72,7 +72,7 @@ export const google = async (req, res, next) => {
             );
             const {password, ...rest} = user._doc
 
-            res.status(200).cookie('access token', token, {
+            res.status(200).cookie('access_token', token, {
             httpOnly: true}).json(rest);
         } else {
             const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -91,7 +91,7 @@ export const google = async (req, res, next) => {
             
             const {password, ...rest} = validUser._doc
     
-            res.status(200).cookie('access token', token, {
+            res.status(200).cookie('access_token', token, {
                 httpOnly: true}).json(rest);
     
         }
