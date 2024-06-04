@@ -37,7 +37,7 @@ const Signin = () => {
         navigate('/');
       }
     } catch (err) {
-      dispatch(SigninFailure(data.message));
+      dispatch(SigninFailure(err.message));
     }
   }
 
