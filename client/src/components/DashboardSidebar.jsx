@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { HiUser } from 'react-icons/hi'
 import { PiSignOut } from 'react-icons/pi'
 import { Link, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { signOutSuccess } from '../redux/users/userSlice'
 
 const DashboardSidebar = () => {
 
@@ -16,6 +18,24 @@ const DashboardSidebar = () => {
         }
     }, [path.search])
 
+    const dispatch = useDispatch()
+    const handleSignOut = async () => {
+        try {
+            const res = await fetch('api/user/signout', {
+                method: "POST"
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                console.log(data.message)
+            } else {
+                dispatch(signOutSuccess())
+            }
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
+
   return (
     <Sidebar className='w-full md:w-56'>
         <Sidebar.Items>
@@ -26,7 +46,8 @@ const DashboardSidebar = () => {
                         Profile
                     </Sidebar.Item>
                 </Link>
-                <Sidebar.Item icon={PiSignOut} className='cursor-pointer'> 
+                <Sidebar.Item icon={PiSignOut} className='cursor-pointer'
+                 onClick = {handleSignOut}> 
                     Sign Out
                 </Sidebar.Item>
             </Sidebar.ItemGroup>
