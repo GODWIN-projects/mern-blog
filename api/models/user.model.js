@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
         photoURL: {
             type: String,
             default: "https://images.app.goo.gl/msUpp6dR595J5m2c8",
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
         }
     }, {timestamps: true}
 );
