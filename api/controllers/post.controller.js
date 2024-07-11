@@ -37,12 +37,10 @@ export const getposts = async (req, res, next) => {
 
         const totalPosts = await post.countDocuments();
 
-        const now = new Date();
-        const oneMonthAgo = new Date(
-            now.getFullYear,
-            now.getMonth() - 1,
-            now.getDate()
-        );
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        oneMonthAgo.setHours(0, 0 ,0, 0);
+        console.log(oneMonthAgo)
 
         const lastMonthPosts = await post.countDocuments({ createdAt: { $gte: oneMonthAgo } });
 
@@ -52,6 +50,7 @@ export const getposts = async (req, res, next) => {
             lastMonthPosts
         });
     } catch (err) {
-        next(err)
+        console.log(err)
+        next(err);
     }
 }
