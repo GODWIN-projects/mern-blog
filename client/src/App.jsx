@@ -10,6 +10,7 @@ import Header from './components/Header'
 import CreatePost from './pages/CreatePost'
 import FooterComponent from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
+import UpdatePost from './pages/UpdatePost'
 
 
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route element={<PrivateRoute/>}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/createpost' element={<CreatePost/>}/>
+          <Route path='/updatepost/:postId' element={<UpdatePost/>}/>
         </Route>
         <Route path="/sign-in" element={<Signin />}/>
         <Route path="/sign-up" element={<SignUp />}/>
