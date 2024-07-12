@@ -51,7 +51,7 @@ const DashboardUsers = () => {
   const handleDelete = async () => {
     setShowModel(false)
     try {
-      const res = await fetch(`api/post/deletepost/${postToDelete}/${currentUser._id}`,
+      const res = await fetch(`api/user/delete/${userToDelete}`,
       {
         method: 'DELETE',
       })
@@ -59,8 +59,8 @@ const DashboardUsers = () => {
       if (!res.ok) {
         console.log(data.message)
       } else {
-        setUserPosts((prev) => 
-          prev.filter((post) => post._id !== postToDelete))
+        setUsers((prev) => 
+          prev.filter((user) => user._id !== userToDelete))
       }
 
     } catch (err) {
@@ -139,7 +139,7 @@ const DashboardUsers = () => {
         showModel &&
         <Modal show={showModel} onClose={() => {
                                                 setShowModel(false)
-                                                setPostToDelete(null)
+                                                setUserToDelete(null)
                                               }}
             popup size='md'>
                 <Modal.Header/>
@@ -149,7 +149,7 @@ const DashboardUsers = () => {
                         className='h-14 w-14 text-gray-400
                          dark:text-gray-200 mb-4 mx-auto'/>
                         <h3 className='mb-5 text-gray-500 text-lg dark:text-gray-400'>
-                            Are you sure you want to this post?
+                            Are you sure you want to this user?
                         </h3>
                         <div className='flex justify-center gap-4'>
                             <Button color={'failure'} onClick={handleDelete}>
@@ -157,7 +157,7 @@ const DashboardUsers = () => {
                             </Button>
                             <Button color='gray' onClick={() => {
                                                                 setShowModel(false)
-                                                                setPostToDelete(null)
+                                                                setUserToDelete(null)
                                                                 }}>
                                 No, Cancel
                             </Button>

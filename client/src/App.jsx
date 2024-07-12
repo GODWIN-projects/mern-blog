@@ -11,6 +11,7 @@ import CreatePost from './pages/CreatePost'
 import FooterComponent from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
 import UpdatePost from './pages/UpdatePost'
+import PostPage from './pages/PostPage'
 
 
 
@@ -29,6 +30,7 @@ export default function App() {
         </Route>
         <Route path="/sign-in" element={<Signin />}/>
         <Route path="/sign-up" element={<SignUp />}/>
+        <Route path="/post/:postSlug" element={<PostPage/>}/>
         <Route path="/projects" element={<Projects />}/>
       </Routes>
       <FooterComponent/>

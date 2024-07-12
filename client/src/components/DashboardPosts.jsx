@@ -94,7 +94,7 @@ const DashboardPosts = () => {
                           {new Date(post.updatedAt).toLocaleDateString()}
                         </Table.Cell>
                         <Table.Cell>
-                          <Link to={`post/${post.slug}`}>
+                          <Link to={`/post/${post.slug}`}>
                             <div className='inline-block overflow-hidden rounded-md'>
                               <img 
                                 src={post.image} 
@@ -105,7 +105,7 @@ const DashboardPosts = () => {
                           </Link>
                         </Table.Cell>
                         <Table.Cell>
-                          <Link to={`post/${post.slug}`} className='hover:underline font-medium
+                          <Link to={`/post/${post.slug}`} className='hover:underline font-medium
                           text-gray-500 dark:text-white'>
                             {post.title}
                           </Link>
