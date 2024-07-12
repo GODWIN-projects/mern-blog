@@ -1,6 +1,6 @@
 import { Sidebar } from 'flowbite-react'
 import { useEffect, useState } from 'react'
-import { HiDocumentText, HiUser } from 'react-icons/hi'
+import { HiDocumentText, HiOutlineUser, HiUser } from 'react-icons/hi'
 import { PiSignOut } from 'react-icons/pi'
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,7 @@ const DashboardSidebar = () => {
 
     const path = useLocation()
     const [tab,setTab] = useState(null)
-    const currentUser = useSelector(state => state.user)
+    const currentUser = useSelector(state => state.user.currentUser)
     useEffect(() => {
         const urlParams = new URLSearchParams(path.search)
         const URLtab = urlParams.get('tab')
@@ -52,6 +52,15 @@ const DashboardSidebar = () => {
                         Posts
                     </Sidebar.Item>
                 </Link>
+                {
+                    currentUser.isAdmin && (
+                        <Link to={'/dashboard?tab=users'}>
+                            <Sidebar.Item active={tab == "users"} as="div" icon={HiOutlineUser} >
+                                Users
+                            </Sidebar.Item>
+                        </Link>
+                    )
+                }
                 <Sidebar.Item icon={PiSignOut} className='cursor-pointer'
                  onClick = {handleSignOut}> 
                     Sign Out

@@ -3,11 +3,15 @@ import { useLocation } from "react-router-dom"
 import DashboardSidebar from "../components/DashboardSidebar"
 import DashboardProfile from "../components/DashboardProfile"
 import DashboardPosts from "../components/DashboardPosts"
+import { useSelector } from "react-redux"
+import DashboardUsers from "../components/DashboardUsers"
 
 const Dashboard = () => {
 
   const path = useLocation()
   const [tab,setTab] = useState(null)
+  const currentUser = useSelector(state => state.user.currentUser)
+
   useEffect(() => {
     const urlParams = new URLSearchParams(path.search)
     const URLtab = urlParams.get('tab')
@@ -28,6 +32,9 @@ const Dashboard = () => {
         } 
         {
           tab == 'posts' && <DashboardPosts/>
+        }
+        {
+          currentUser.isAdmin && tab == 'users' && <DashboardUsers/>
         }
     </div>
   )
