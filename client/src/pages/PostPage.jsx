@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {Button, Spinner} from 'flowbite-react'
+import CommentSection from '../components/CommentSection'
 
 const PostPage = () => {
 
@@ -43,7 +44,7 @@ const PostPage = () => {
   )  
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-        <h1 className='text-3xl mt-10 p-3 self-center font-serif max-w-2xl mx-auto
+        <h1 className='text-3xl mt-10 p-3 self-center font-serif max-w-3xl mx-auto
         lg:text-4xl'>
             { post.title}
         </h1>
@@ -52,16 +53,17 @@ const PostPage = () => {
                 {post.category}
             </Button>
         </Link>
-        <img className='mt-10 p-3 max-h-[600px] w-full object-cover'
+        <img className='mt-10 p-3 max-h-[600px] w-full object-cover mx-auto max-w-3xl'
             src={post.image} 
             alt={post.title} />
-        <span className='p-3 border-b border-slate-500 mx-3 text-xs w-full'>
+        <span className='p-3 border-b border-slate-500 text-xs w-full mx-auto max-w-3xl'>
             {new Date(post.createdAt).toLocaleDateString()}
         </span>
         <div dangerouslySetInnerHTML={{__html: post.content}}
-            className='mt-10 p-3 bg-teal-50 dark:bg-slate-800 post-content'>
+            className='mt-10 p-3 bg-teal-50 dark:bg-slate-800 post-content mx-auto max-w-3xl w-full'>
 
         </div>
+        <CommentSection postId={post._id}/>
     </main>
   )
 }
