@@ -1,7 +1,8 @@
 import { Alert, Button, Textarea } from 'flowbite-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import SingleComment from './Comment.jsx'
 
 const CommentSection = ({postId}) => {
 
@@ -9,6 +10,25 @@ const CommentSection = ({postId}) => {
     const {currentUser }= useSelector(state => state.user)
     const [comment, setComment] = useState("")
     const [commentErr,setCommentErr] = useState(null)
+    const [postComments,setPostComments] = useState([])
+
+
+    useEffect(() => {
+        const getComments = async (req, res, next) => {
+            try{
+                const res = await fetch(`/api/comment/getcomments/${postId}`)
+                const data = await res.json()
+                if (!res.ok) {
+                    console.log(data.message)
+                    return
+                }
+                setPostComments(data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getComments()
+    }, [postId])
 
 
     const handleSubmit = async (e) => {
@@ -25,10 +45,11 @@ const CommentSection = ({postId}) => {
                                         postId,
                                     userId: currentUser._id})
             })
-            const data = res.json()
+            const data = await res.json()
             if (res.ok) {
                 setComment("")
                 setCommentErr(null)
+                setPostComments([data, ...postComments])
             } else {
                 setCommentErr(data.message)
             }
@@ -86,6 +107,33 @@ const CommentSection = ({postId}) => {
                         </Alert>
                     }
                 </form>
+            )
+        }
+        {
+            postComments.length == 0 ?
+            (
+                <p className='text-sm my-5'>
+                    No comments yet. Be the firt one to comment
+                </p>
+            ) :
+            (
+                <>
+                    <div className='flex gap-1 items-center my-5 text-sm'>
+                        <p>Comments</p>
+                        <span className=' border px-2 border-gray-400 rounded-sm py-[2px]'>
+                            {postComments.length}
+                        </span>
+                    </div>
+                    {
+                        postComments.map((comment) => {
+                            return (
+                                <SingleComment
+                                    key={comment._id}
+                                    comment={comment}/>
+                            )
+                        }) 
+                    }
+                </>
             )
         }
     </div>
