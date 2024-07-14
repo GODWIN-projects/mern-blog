@@ -1,7 +1,7 @@
 import { Alert, Button, Textarea } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import {useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SingleComment from './Comment.jsx'
 
 const CommentSection = ({postId}) => {
@@ -11,6 +11,7 @@ const CommentSection = ({postId}) => {
     const [comment, setComment] = useState("")
     const [commentErr,setCommentErr] = useState(null)
     const [postComments,setPostComments] = useState([])
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -56,6 +57,36 @@ const CommentSection = ({postId}) => {
         } catch (err) {
             setCommentErr(err.message)
         }
+    }
+
+    const handleLike = async (commentId) => {
+        try{
+            if (!currentUser) {
+                navigate('/sign-in')
+                return
+            }
+            const res = await fetch(`/api/comment/likecomment/${commentId}`, {
+                method: "PUT",
+            })
+            
+            if (res.ok) {
+                const data = await res.json()
+                setPostComments(postComments.map((comm) => {
+                    return comm._id == commentId ? {
+                        ...comm,
+                        likes: data.likes,
+                        numberOfLikes: data.numberOfLikes
+                    } : comm
+                })) 
+                
+            } else {
+                console.log(data.message)
+                return
+            }
+        } catch (err) {
+            console.log(err.message)
+        }
+        console.log(postComments)
     }
 
   return (
@@ -125,11 +156,13 @@ const CommentSection = ({postId}) => {
                         </span>
                     </div>
                     {
-                        postComments.map((comment) => {
+                        postComments.length > 0  && postComments.map((comment) => {
+                            console.log(comment)
                             return (
                                 <SingleComment
                                     key={comment._id}
-                                    comment={comment}/>
+                                    comment={comment}
+                                    onlike={handleLike}/>
                             )
                         }) 
                     }
