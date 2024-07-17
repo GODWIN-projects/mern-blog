@@ -96,3 +96,39 @@ export const deleteComment = async(req, res, next) => {
         next(err);
     }
 }
+
+
+export const getAllComments = async (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403,"Unauthorized"));
+    };
+    try {
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = parseInt(req.query.limit) || 10;
+        const sortDirection  = req.query.sortDirection == "asc" ? 1 : -1;
+        const Comments = await comment.find().sort({createdAt: sortDirection})
+                            .skip(startIndex).limit(limit);
+        
+        const totalComments = await comment.countDocuments();
+
+        let show = false;
+        if (Comments.length > 9) {
+            show = true;
+        }
+
+        const oneMonthAgo = new Date()
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        oneMonthAgo.setHours(0, 0, 0, 0);
+
+        const lastMonthComments = await comment.countDocuments({createdAt: {$gte: oneMonthAgo}});
+
+        res.status(200).json(
+           { Comments,
+            totalComments,
+            show,
+            lastMonthComments
+        })
+    } catch (err) {
+        next(err);
+    }
+}

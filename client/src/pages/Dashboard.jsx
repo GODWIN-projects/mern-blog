@@ -5,6 +5,7 @@ import DashboardProfile from "../components/DashboardProfile"
 import DashboardPosts from "../components/DashboardPosts"
 import { useSelector } from "react-redux"
 import DashboardUsers from "../components/DashboardUsers"
+import DashboardComments from "../components/DashboardComments"
 
 const Dashboard = () => {
 
@@ -35,6 +36,9 @@ const Dashboard = () => {
         }
         {
           currentUser.isAdmin && tab == 'users' && <DashboardUsers/>
+        }
+        {
+          currentUser.isAdmin && tab == 'comments' && <DashboardComments/>
         }
     </div>
   )
