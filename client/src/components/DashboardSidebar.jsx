@@ -49,7 +49,7 @@ const DashboardSidebar = () => {
                 </Link>
                 <Link to={'/dashboard?tab=posts'}>
                     <Sidebar.Item active={tab == 'posts'} icon={HiDocumentText} as='div'>
-                        Posts
+                        My Posts
                     </Sidebar.Item>
                 </Link>
                 {
@@ -65,7 +65,16 @@ const DashboardSidebar = () => {
                     currentUser.isAdmin && (
                         <Link to={'/dashboard?tab=comments'}>
                             <Sidebar.Item active={tab == "comments"} as="div" icon={HiAnnotation} >
-                                Comments
+                                All Comments
+                            </Sidebar.Item>
+                        </Link>
+                    )
+                }
+                {
+                    currentUser.isAdmin && (
+                        <Link to={'/dashboard?tab=allposts'}>
+                            <Sidebar.Item active={tab == "allposts"} as="div" icon={HiAnnotation} >
+                                All Posts
                             </Sidebar.Item>
                         </Link>
                     )

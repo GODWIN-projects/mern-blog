@@ -6,6 +6,7 @@ import DashboardPosts from "../components/DashboardPosts"
 import { useSelector } from "react-redux"
 import DashboardUsers from "../components/DashboardUsers"
 import DashboardComments from "../components/DashboardComments"
+import AllPosts from "../components/AllPosts"
 
 const Dashboard = () => {
 
@@ -39,6 +40,9 @@ const Dashboard = () => {
         }
         {
           currentUser.isAdmin && tab == 'comments' && <DashboardComments/>
+        }
+        {
+          currentUser.isAdmin && tab == 'allposts' && <AllPosts/>
         }
     </div>
   )

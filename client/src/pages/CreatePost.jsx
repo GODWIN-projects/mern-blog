@@ -8,13 +8,15 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
+import { useSelector } from 'react-redux';
 
 const CreatePost = () => {
 
   const [file, setFile] = useState(null)
   const [imageUploadProgress, setImageUploadProgress] = useState(null)
+  const {currentUser} = useSelector(state => state.user)
   const [imageUploadError, setImageUploadError] = useState(null)
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({username: currentUser.username})
   const [publishError, setPublishError] = useState(null)
   const [publishSuccess, setPublishSuccess] = useState(false)
   const [publishLoading, setPublishLoading] = useState(false)

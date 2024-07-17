@@ -79,6 +79,7 @@ const DashboardComments = () => {
                 <Table.HeadCell>Comment content</Table.HeadCell>
                 <Table.HeadCell>Number of likes</Table.HeadCell>
                 <Table.HeadCell>Post-Id</Table.HeadCell>
+                <Table.HeadCell>User name</Table.HeadCell>
                 <Table.HeadCell>UserId</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
               </Table.Head>
@@ -99,6 +100,9 @@ const DashboardComments = () => {
                         </Table.Cell>
                         <Table.Cell>
                             {comment.postId}
+                        </Table.Cell>
+                        <Table.Cell>
+                            {comment.username}
                         </Table.Cell>
                         <Table.Cell>
                           {comment.userId}

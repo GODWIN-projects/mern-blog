@@ -1,24 +1,39 @@
 import { Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Modal } from 'flowbite-react'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { Button } from 'flowbite-react'
 
-const DashboardPosts = () => {
+const DashboardPosts = ({user}) => {
 
   const currentUser = useSelector(state => state.user.currentUser)
   const [userPosts, setUserPosts] = useState([])
   const [showMore, sestShowMore] = useState(true)
   const [showModel,setShowModel] = useState(false)
   const [postToDelete,setPostToDelete] = useState(null)
+
+  const path = useLocation()
+  const [tab,setTab] = useState(null)
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(path.search)
+    const URLtab = urlParams.get('tab')
+    if (URLtab) {
+    setTab(URLtab)
+    }
+  }, [path.search])
  
 
   useEffect( () => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        
+        const api = user !== "all" ? `/api/post/getposts?userId=${currentUser._id}` : "/api/post/getposts";
+        console.log(api)
+         
+        const res = await fetch(api);
         console.log(currentUser._id)
         const data = await res.json()
         if (res.ok) {
@@ -36,7 +51,10 @@ const DashboardPosts = () => {
   const handleShowMore = async () => {
     const startIndex = userPosts.length
     try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`)
+
+      const api = user !== "all" ? `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}` : `/api/post/getposts?startIndex=${startIndex}`;
+
+      const res = await fetch(api)
       const data = await res.json()
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts.slice(0,9)])
@@ -81,9 +99,20 @@ const DashboardPosts = () => {
                 <Table.HeadCell>Post title</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
-                <Table.HeadCell>
-                  <span>Edit</span>
-                </Table.HeadCell>
+                {
+                  currentUser.isAdmin && tab === "allposts" ?
+                  (
+                    <Table.HeadCell>
+                      Username
+                    </Table.HeadCell>
+                  ) :
+                  (
+                    <Table.HeadCell>
+                      <span>Edit</span>
+                    </Table.HeadCell>
+
+                  )
+                }
               </Table.Head>
               <Table.Body className='divide-y'>
                 {
@@ -122,11 +151,22 @@ const DashboardPosts = () => {
                             Delete
                           </span>
                         </Table.Cell>
-                        <Table.Cell >
-                          <Link to={`/updatepost/${post._id}`}>
-                            <span className='text-teal-500 hover:underline'>Edit</span>
-                          </Link>
-                        </Table.Cell>
+                        {
+                          currentUser.isAdmin && tab === "allposts" ?
+                          (
+                            <Table.Cell>
+                              {post.username}
+                            </Table.Cell>
+                          ) :
+                          (
+                            <Table.Cell >
+                              <Link to={`/updatepost/${post._id}`}>
+                                <span className='text-teal-500 hover:underline'>Edit</span>
+                              </Link>
+                            </Table.Cell>
+
+                          )
+                        }
                       </Table.Row>
                     )
                   })
@@ -134,7 +174,7 @@ const DashboardPosts = () => {
               </Table.Body>
             </Table>
           </>
-        ) : <p>No Users yet!</p>
+        ) : <p>No posts yet!</p>
       }
       { 
         showMore &&

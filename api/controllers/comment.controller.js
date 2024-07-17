@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const createComment = async(req, res, next) => {
     try{
-        const { content, postId, userId } = req.body;
+        const { content, postId, userId, username } = req.body;
         if (userId !== req.user.Id) {
             return next(errorHandler(403,"Unauthorized"));
         };
@@ -12,6 +12,7 @@ export const createComment = async(req, res, next) => {
            {content,
             postId,
             userId,
+            username
         }); 
         await newComment.save();
         
