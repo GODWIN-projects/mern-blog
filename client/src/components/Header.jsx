@@ -1,6 +1,6 @@
 import { Avatar, Button, Dropdown, DropdownHeader, DropdownItem, Navbar, TextInput } from 'flowbite-react'
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon, FaSun} from 'react-icons/fa'
 import { useSelector,useDispatch } from 'react-redux'
@@ -11,7 +11,18 @@ const Header = () => {
     const path = useLocation().pathname
     const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const [searchTerm, setSearchTerm] = useState('')
     const {theme} = useSelector(state => state.theme)
+
+    useEffect(()=> {
+        const uRLParams = new URLSearchParams(location.search)
+        const searchTermURL = uRLParams.get('searchTerm')
+        if (searchTermURL) {
+            setSearchTerm(searchTermURL)
+        }
+    }, [location.search])
 
     const handleSignOut = async () => {
         try {
@@ -30,6 +41,18 @@ const Header = () => {
     }
 
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const uRLParams = new URLSearchParams(location.search)
+        uRLParams.set('searchTerm',searchTerm)
+        const searchQuery = uRLParams.toString()
+        console.log(uRLParams)
+        console.log(location)
+        navigate(`/search?${searchQuery}`)
+    }
+
+
+
   return (
     <Navbar className=' border-b-2'>
         <Link to="/" className=' self-center whitespace-nowrap
@@ -38,12 +61,14 @@ const Header = () => {
             from-teal-300 to-lime-200 rounded-lg text-gray-700'>FIRST</span>
             Blog
         </Link>
-        <form>
+        <form onSubmit={handleSubmit}>
             <TextInput
                 type='text'
                 placeholder='Search..'
                 rightIcon={AiOutlineSearch}
                 className=' hidden lg:inline'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
             />
         </form>
         <Button className='w-12 lg:hidden focus:ring-0' color="gray" pill>

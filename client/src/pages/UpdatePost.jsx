@@ -126,7 +126,7 @@ const UpdatePost = () => {
           onChange={(e) => setFormData({...formData, title: e.target.value})}/>
           <Select value={formData.category}
             onChange={(e) => setFormData({...formData, category:e.target.value})}>
-            <option value={"uncatogorized"}>Select a catogory</option>
+            <option value={"uncategorized"}>Select a category</option>
             <option value={"food"}>Food</option>
             <option value={"lifestyle"}>LifeStyle</option>
             <option value={"travel"}>Travel</option>

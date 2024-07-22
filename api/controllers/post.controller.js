@@ -36,6 +36,7 @@ export const getposts = async (req, res, next) => {
         }).sort({ updateAt: sortDirection }).skip(startIndex).limit(limit);
 
         const totalPosts = await post.countDocuments();
+        console.log(req.query.category)
 
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
