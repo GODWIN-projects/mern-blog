@@ -14,6 +14,7 @@ const Header = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState('')
+    const [searchbar,setSearchbar] = useState(false)
     const {theme} = useSelector(state => state.theme)
 
     useEffect(()=> {
@@ -34,6 +35,7 @@ const Header = () => {
                 console.log(data.message)
             } else {
                 dispatch(signOutSuccess())
+                navigate("/sign-in")
             }
         } catch (err) {
             console.log(err.message)
@@ -66,12 +68,13 @@ const Header = () => {
                 type='text'
                 placeholder='Search..'
                 rightIcon={AiOutlineSearch}
-                className=' hidden lg:inline'
+                className={`hidden lg:inline ${searchbar && "inline"}`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
         </form>
-        <Button className='w-12 lg:hidden focus:ring-0' color="gray" pill>
+        <Button className={`w-12 lg:hidden focus:ring-0 ${searchbar && "hidden"}`} 
+        color="gray" pill onClick={() => setSearchbar(true)}>
             <AiOutlineSearch/>
         </Button>
         <div className='flex gap-2 md:order-2'> 
@@ -121,11 +124,7 @@ const Header = () => {
                     About
                 </Link>
             </Navbar.Link>
-            <Navbar.Link active={path=='/projects'} as={'div'}>
-                <Link to='/projects'>
-                    Projects
-                </Link>
-            </Navbar.Link>
+            
         </Navbar.Collapse>
     </Navbar>
   )

@@ -21,13 +21,12 @@ const FooterComponent = () => {
                     <FooterTitle title='ABOUT'/>
                     <Footer.LinkGroup col>
                         <Footer.Link
-                        href='#'
                         target='_blank'
                         rel='noopener noreferrer'>
                             created by GODWIN K
                         </Footer.Link>
                         <Footer.Link
-                        href='godwindass14@gmail.com'
+                        href='mailto: godwindass14@gmail.com'
                         target='_blank'
                         rel='noopener noreferrer'>
                             godwindass14@gamil.com
@@ -39,8 +38,8 @@ const FooterComponent = () => {
             <div className='w-full sm:flex sm:items-center sm:justify-between pr-12'>
                 <Footer.Copyright by='GODWIN K' year={new Date().getFullYear()}/>
                 <div className='flex gap-6 sm:mt-0 md:mt-4 sm:justify-center'>
-                    <Footer.Icon href='#' icon={ImGithub}/>
-                    <Footer.Icon href='#' icon={SiGmail}/>
+                    <Footer.Icon href='https://github.com/GODWIN-projects/' target='_blank' icon={ImGithub}/>
+                    <Footer.Icon href='mailto: godwindass14@gmail.com' icon={SiGmail}/>
                 </div>
             </div>
         </div>
