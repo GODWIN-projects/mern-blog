@@ -95,7 +95,7 @@ const PostPage = () => {
                             post={post}/>
                     })
                 }
-            </div>
+            </div> 
         </div>
     </main>
   )
