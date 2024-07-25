@@ -17,7 +17,7 @@ const About = () => {
               First Blog is a blog that I created to test my skills in
               web development. I created this using React Js, Tailwind CSS,
               Node Js, Express Js, Mongo DB and Firebase. I'm open to work
-              you can contect me using my e-mail &nbsp;
+              you can contact me using my e-mail &nbsp;
               <span className=' dark:text-lime-200 text-purple-600'>godwindass14@gmail.com</span>
             </p>
           </div>

@@ -74,11 +74,11 @@ const PostPage = () => {
         <img className='mt-10 p-3 max-h-[600px] w-full object-cover mx-auto max-w-3xl'
             src={post.image} 
             alt={post.title} />
-        <span className='p-3 border-b border-slate-500 text-xs w-full mx-auto max-w-3xl'>
+        <span className='p-3 border-b border-slate-500 text-xs w-full mx-auto max-w-3xl rounded-lg'>
             {new Date(post.createdAt).toLocaleDateString()}
         </span>
         <div dangerouslySetInnerHTML={{__html: post.content}}
-            className='mt-10 p-3 bg-teal-50 dark:bg-slate-800 post-content mx-auto max-w-3xl w-full'>
+            className='mt-10 p-3 bg-teal-50 dark:bg-slate-800 post-content mx-auto max-w-3xl w-full rounded-lg'>
 
         </div>
         <CommentSection postId={post._id}/>

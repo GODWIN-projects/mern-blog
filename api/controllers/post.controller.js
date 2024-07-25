@@ -90,7 +90,7 @@ export const updatepost = async (req, res, next) => {
                                                                 image: req.body.image,
                                                             }
                                                         }, { new: true });
-        console.log(updatedPost);
+        
         res.status(200).json(updatedPost);
     } catch (err) {
         next(err);
